@@ -1,0 +1,22 @@
+<mat-toolbar color="primarynp">
+   <link rel="icon" type="image/x-icon" href="logo.png">
+
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <img src="logo.png" alt="">
+  <span class="example-spacer"></span>
+  
+  <button mat-raised-button color="primary" routerLink="/create-post">Create New Post</button>
+  <h1></h1>
+  <button mat-raised-button color="primary" routerLink="/view-all">View All Posts</button>
+  <button mat-raised-button color="primary" routerLink="/search-by-name">Search</button>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+<router-outlet></router-outlet>

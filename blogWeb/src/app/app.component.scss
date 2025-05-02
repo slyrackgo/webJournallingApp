@@ -1,0 +1,31 @@
+mat-toolbar {
+    background-color: #1976d2; // Material blue
+    color: #fff;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .app-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+  
+  .icon-button {
+    color: #fff;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  mat-toolbar span {
+    margin-right: 10px; /* Add spacing between "My App" text and the logo */
+  }
+  
+  mat-toolbar img {
+    height: 50px; /* Adjust the height of the logo */
+    margin-right: auto; /* Push the rest of the toolbar items to the right */
+  }
+    
