@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
+
     @Autowired
     private PostRepository postRepository;
 
@@ -23,10 +24,22 @@ public class PostServiceImpl implements PostService {
         return  postRepository.save(post);
     }
 
+    @Override
+    public Post updatePost(Long id, Post postDetails) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        post.setTitle(postDetails.getTitle());
+        post.setContent(postDetails.getContent());
+
+        return postRepository.save(post);
+    }
+
+    @Override
     public List<Post> getAllPosts(){
         return postRepository.findAll();
     }
 
+    @Override
     public Post getPostById(Long postId){
         Optional<Post> optionalPost = postRepository.findById(postId);
         if(optionalPost.isPresent()){
@@ -40,6 +53,7 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    @Override
     public void likePost(Long postId){
         Optional<Post> optionalPost = postRepository.findById(postId);
         if(optionalPost.isPresent()){
@@ -52,9 +66,18 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-    public List<Post> seachByName(String name){
+    @Override
+    public List<Post> searchByName(String name){
         return postRepository.findAllByNameContaining(name);
 
     }
+
+    @Override
+    public void deletePost(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+        postRepository.delete(post);
+    }
+
 
 }
