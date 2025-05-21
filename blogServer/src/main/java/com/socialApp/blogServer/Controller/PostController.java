@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
+
     @Autowired
     private PostService postService;
 
@@ -60,11 +61,29 @@ public class PostController {
     @GetMapping("/search/{name}")
     public ResponseEntity<?> searchByName(@PathVariable String name){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(postService.seachByName(name));
+            return ResponseEntity.status(HttpStatus.OK).body(postService.searchByName(name));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @PutMapping("/posts/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
+        Post updatedPost = postService.updatePost(id, postDetails);
+        return ResponseEntity.ok(updatedPost);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePost(@PathVariable Long id) {
+        try {
+            postService.deletePost(id);
+            return ResponseEntity.ok("Posts deleted successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+// добавлены функции....
+    // update
+    // delete
 
 }

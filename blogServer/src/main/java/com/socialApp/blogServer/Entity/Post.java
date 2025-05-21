@@ -6,12 +6,14 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String title;
 
     private String name;
 
@@ -28,7 +30,9 @@ public class Post {
 
     private int viewCount;
 
-    private List<String> tags;
+    private List<String> tags;}
+
+
 
 //    public void setLikeCount(int i) {
 //    }
@@ -36,6 +40,3 @@ public class Post {
 //    public void setViewCount(int i) {
 //    }
 
-    public void setDate(Date date) {
-    }
-}
