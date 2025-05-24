@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <link rel="icon" type="image/x-icon" href="logo.png" />
+
+  <button mat-icon-button class="example-icon" aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span>My App</span>
+  <img src="logo.png" alt="logo" height="40" />
+  <span class="example-spacer"></span>
+
+  <button mat-raised-button class="toolbar-button" [routerLink]="'/create-post'">Create New Post</button>
+  <button mat-raised-button class="toolbar-button" [routerLink]="'/view-all'">View All Posts</button>
+  <button mat-raised-button class="toolbar-button" [routerLink]="'/search-by-name'">Search</button>
+
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Favorite">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Share">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<footer class="app-footer">
+  <p>
+    Created by
+    <a href="https://github.com/myrzadaksh" target="_blank">Front-end: Daulet/          </a>
+    <a href="https://github.com/slyrackgo" target="_blank">Backend: Atai/          </a>
+    <a href="https://github.com/rus1tam" target="_blank">Backend: Rustam/          </a>
+    <a href="https://github.com/Muhammad12710" target="_blank">Cybersecurity engineer: Mukhammad</a>
+  </p>
+  <p>
+    Project Repository:
+    <a href="https://github.com/myrzadaksh/webJournallingApp" target="_blank">
+      webJournallingApp on GitHub
+    </a>
+  </p>
+</footer>

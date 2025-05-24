@@ -1,0 +1,63 @@
+mat-toolbar {
+    background-color: #1976d2; // Material blue
+    color: #fff;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .app-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+  
+  .icon-button {
+    color: #fff;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  mat-toolbar span {
+    margin-right: 10px; /* Add spacing between "My App" text and the logo */
+  }
+  
+  mat-toolbar img {
+    height: 50px; /* Adjust the height of the logo */
+    margin-right: auto; /* Push the rest of the toolbar items to the right */
+  }
+.app-footer {
+  background-color: #f1f1f1;
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px solid #ccc;
+  margin-top: auto; // 👈 ключевая строка
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
+
+  a {
+    color: #1976d2;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+mat-toolbar button[mat-raised-button] {
+  min-width: unset;
+  max-width: none;
+  padding: 6px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+}
+
+.toolbar-button {
+  min-width: unset !important;
+  width: 200px;
+  padding: 6px 8px;
+  font-size: 14px;
+}

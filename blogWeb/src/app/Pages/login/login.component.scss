@@ -1,0 +1,40 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 150px); // toolbar (~64px) + footer (~80px) + отступ
+  padding: 40px 16px;
+}
+
+/* Оформление карточки */
+mat-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: white;
+}
+
+/* Поля формы */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Кнопка логина */
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Заголовок */
+mat-card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #3f51b5;
+}

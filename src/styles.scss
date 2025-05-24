@@ -1,0 +1,82 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+/* Ensure the html and body take up the full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Center the login form horizontally under the navbar */
+:host {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align to the top under the navbar */
+  margin-top: 20px; /* Add spacing below the navbar */
+  width: 100%; /* Ensure it spans the full width */
+  height: calc(100vh - 64px); /* Subtract the navbar height from the viewport height */
+}
+
+mat-card {
+  max-width: 400px;
+  width: 100%;
+margin-left: 550px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: white;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+mat-card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #3f51b5;
+ 
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
