@@ -12,7 +12,7 @@ export class AuthService {
 
   // Simulated user database
   private users = [
-    { email: 'aibragimov2003@bk.ru', password: '290903@a' }, // Example user
+    { email: 'aibragimov2003@bk.ru', password: 'a41d54bb6a4bed7b4d2f8d2d8be74506ebaf00cd5ab32919e4016e4a73bbe7d5' }, 
   ];
 
   // Login method
