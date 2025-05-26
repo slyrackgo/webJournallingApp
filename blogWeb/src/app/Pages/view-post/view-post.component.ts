@@ -1,4 +1,3 @@
-
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
@@ -23,18 +22,21 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatIconModule,
     MatChipsModule,
-    HttpClientModule, // Ensure this is included
+    HttpClientModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
   ],
 })
 export class ViewPostComponent implements OnInit {
-  postId: string | null = null; // Declare postId as string | null
-  postData: any = null; // Initialize postData as null
-  comments: any[] = []; // Initialize comments as an empty array
+  postId: string | null = null;
+  postData: any = null;
+  comments: any[] = [];
   commentForm!: FormGroup;
-  snackBar: any;
+
+  // Separate variables for likes and views
+  likeCount: number = 0;
+  viewCount: number = 0;
 
   constructor(
     private postService: PostService,
@@ -45,18 +47,19 @@ export class ViewPostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postId = this.activatedRoute.snapshot.params['id']; // Get the postId from the route
+    this.postId = this.activatedRoute.snapshot.params['id'];
     console.log('Post ID:', this.postId);
+
     this.commentForm = this.fb.group({
       postedBy: [null, Validators.required],
       content: [null, Validators.required],
     });
 
     if (this.postId) {
-      const postIdAsNumber = Number(this.postId); // Convert postId to a number
+      const postIdAsNumber = Number(this.postId);
       if (!isNaN(postIdAsNumber)) {
-        this.getPostById(postIdAsNumber); // Fetch post data
-        this.getCommentByPost(postIdAsNumber); // Fetch comments
+        this.getPostById(postIdAsNumber);
+        this.getCommentByPost(postIdAsNumber);
       } else {
         this.showSnackBar('Invalid post ID');
       }
@@ -65,48 +68,23 @@ export class ViewPostComponent implements OnInit {
     }
   }
 
-  /**
-   * Publish a comment
-   */
-  // publishComment(): void {
-  //   const postIdAsNumber = this.postId ? Number(this.postId) : null; // Convert postId to a number
-  //   if (postIdAsNumber !== null && !isNaN(postIdAsNumber)) {
-  //     const postedBy = this.commentForm.get('postedBy')?.value;
-  //     const content = this.commentForm.get('content')?.value;
-
-  //     this.commentService.createComment(postIdAsNumber, postedBy, content).subscribe(
-  //       (res) => {
-  //         this.matSnackBar.open('Comment published successfully!', 'Close', { duration: 3000 });
-  //         this.commentForm.reset(); // Reset the form after successful submission
-  //         this.getCommentByPost(postIdAsNumber); // Refresh comments
-  //       },
-  //       (error) => {
-  //         this.matSnackBar.open('Error publishing comment!', 'Close', { duration: 3000 });
-  //       }
-  //     );
-  //   } else {
-  //     this.showSnackBar('Invalid post ID');
-  //   }
-  // }
   publishComment(): void {
     const postIdAsNumber = this.postId ? Number(this.postId) : null;
     const postedBy = this.commentForm.get('postedBy')?.value;
     const content = this.commentForm.get('content')?.value;
-  
-    console.log('Payload being sent to the backend:', { postId: postIdAsNumber, postedBy, content }); // Debugging
-  
+
     if (!postIdAsNumber || isNaN(postIdAsNumber)) {
       this.matSnackBar.open('Invalid post ID', 'Close', { duration: 3000 });
       return;
     }
-  
+
     if (!postedBy || !content) {
       this.matSnackBar.open('Please fill in all fields', 'Close', { duration: 3000 });
       return;
     }
-  
+
     this.commentService.createComment(postIdAsNumber, postedBy, content).subscribe({
-      next: (res) => {
+      next: () => {
         this.matSnackBar.open('Comment published successfully!', 'Close', { duration: 3000 });
         this.commentForm.reset();
         this.getCommentByPost(postIdAsNumber);
@@ -118,26 +96,12 @@ export class ViewPostComponent implements OnInit {
       },
     });
   }
-  /**
-   * Fetch comments for the post
-   * @param postId - The ID of the post
-   */
-  // getCommentByPost(postId: number): void {
-  //   this.commentService.getAllCommentsByPost(postId).subscribe(
-  //     (res) => {
-  //       this.comments = res || []; // Ensure comments is always an array
-  //       console.log('Fetched Comments:', this.comments); // Debugging: Log the comments
-  //     },
-  //     (error) => {
-  //       this.matSnackBar.open('Error fetching comments', 'Close', { duration: 3000 });
-  //     }
-  //   );
-  // }
+
   getCommentByPost(postId: number): void {
     this.commentService.getAllCommentsByPost(postId).subscribe(
       (res: any) => {
-        this.comments = res || []; // Ensure comments is always an array
-        console.log('Fetched Comments:', this.comments); // Debugging: Log the comments
+        this.comments = res || [];
+        console.log('Fetched Comments:', this.comments);
       },
       (error: any) => {
         console.error('Error fetching comments:', error);
@@ -145,14 +109,13 @@ export class ViewPostComponent implements OnInit {
       }
     );
   }
-  /**
-   * Fetch post data by ID
-   * @param postId - The ID of the post to fetch
-   */
+
   getPostById(postId: number): void {
     this.postService.getPostById(postId).subscribe(
       (res) => {
         this.postData = res;
+        this.likeCount = res.likeCount;
+        this.viewCount = res.viewCount;
         console.log('Post Data:', res);
       },
       (error) => {
@@ -161,18 +124,15 @@ export class ViewPostComponent implements OnInit {
     );
   }
 
-  /**
-   * Like the post
-   */
   likePost(): void {
     const postIdAsNumber = this.postId ? Number(this.postId) : null;
     if (postIdAsNumber !== null && !isNaN(postIdAsNumber)) {
       this.postService.likePost(postIdAsNumber).subscribe(
-        (response) => {
+        () => {
           this.matSnackBar.open('Post liked successfully', 'Close', { duration: 3000 });
-          this.getPostById(postIdAsNumber); // Refresh the post data
+          this.likeCount += 1; // Update likes locally only
         },
-        (error) => {
+        () => {
           this.matSnackBar.open('Error liking post', 'Close', { duration: 3000 });
         }
       );
@@ -181,10 +141,6 @@ export class ViewPostComponent implements OnInit {
     }
   }
 
-  /**
-   * Show a snackbar message
-   * @param message - The message to display
-   */
   private showSnackBar(message: string): void {
     this.matSnackBar.open(message, 'Close', { duration: 3000 });
   }
