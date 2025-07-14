@@ -4,5 +4,6 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/blogServer" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/blogWeb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/webJournallingApp" vcs="Git" />
   </component>
 </project>
